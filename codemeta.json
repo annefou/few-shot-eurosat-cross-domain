@@ -1,0 +1,72 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Few-Shot EuroSAT Cross-Domain: From Everyday Photos to Satellite Imagery",
+  "description": "Cross-domain few-shot classification replicating Guo et al. (2020, ECCV) Table 1: train on mini-ImageNet (everyday photos), test on EuroSAT (Sentinel-2 satellite imagery) using Prototypical Networks.",
+  "version": "0.1.0",
+  "dateCreated": "2026-04-14",
+  "dateModified": "2026-04-14",
+  "license": "https://spdx.org/licenses/MIT",
+  "codeRepository": "https://github.com/annefou/few-shot-eurosat-cross-domain",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "Python",
+    "version": "3.12"
+  },
+  "runtimePlatform": "PyTorch 2.11",
+  "operatingSystem": ["Linux", "macOS"],
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Anne",
+      "familyName": "Fouilloux",
+      "@id": "https://orcid.org/0000-0002-1784-2920",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "LifeWatch ERIC"
+      }
+    }
+  ],
+  "keywords": [
+    "few-shot learning",
+    "prototypical networks",
+    "cross-domain transfer",
+    "remote sensing",
+    "Sentinel-2",
+    "EuroSAT",
+    "mini-ImageNet",
+    "land cover classification",
+    "meta-learning",
+    "replication study",
+    "FORRT"
+  ],
+  "softwareRequirements": [
+    "python >=3.12",
+    "pytorch >=2.0",
+    "torchvision >=0.15",
+    "datasets",
+    "numpy",
+    "matplotlib"
+  ],
+  "referencePublication": [
+    {
+      "@type": "ScholarlyArticle",
+      "name": "A Broader Study of Cross-Domain Few-Shot Learning",
+      "author": ["Yunhui Guo", "Noel C. F. Codella", "Leonid Karlinsky", "James V. Codella", "John R. Smith", "Kate Saenko", "Tajana Rosing", "Rogerio Feris"],
+      "datePublished": "2020",
+      "@id": "https://doi.org/10.1007/978-3-030-58583-9_8"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Prototypical Networks for Few-shot Learning",
+      "author": ["Jake Snell", "Kevin Swersky", "Richard Zemel"],
+      "datePublished": "2017",
+      "url": "https://arxiv.org/abs/1703.05175"
+    }
+  ],
+  "isPartOf": {
+    "@type": "Organization",
+    "name": "Science Live",
+    "url": "https://platform.sciencelive4all.org"
+  }
+}

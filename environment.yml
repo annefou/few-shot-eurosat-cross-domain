@@ -1,0 +1,17 @@
+name: few-shot-eurosat-cross
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.12
+  - pytorch>=2.0
+  - torchvision>=0.15
+  - numpy
+  - matplotlib
+  - scipy
+  - jupytext
+  - jupyterlab
+  - snakemake-minimal
+  - pip
+  - pip:
+    - datasets

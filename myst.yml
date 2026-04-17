@@ -1,0 +1,35 @@
+version: 1
+project:
+  title: "Few-Shot EuroSAT Cross-Domain"
+  short_title: "Cross-Domain EuroSAT"
+  abstract: >
+    Cross-domain few-shot classification replicating Guo et al. (2020, ECCV)
+    Table 1: train on mini-ImageNet (everyday photos), test on EuroSAT
+    (Sentinel-2 satellite imagery) using Prototypical Networks. Tests whether
+    visual features from natural photographs transfer to satellite land cover
+    classification.
+  subject: machine learning
+  keywords:
+    - few-shot learning
+    - prototypical networks
+    - cross-domain transfer
+    - remote sensing
+    - Sentinel-2
+    - EuroSAT
+    - mini-ImageNet
+    - land cover
+    - replication study
+  github: https://github.com/annefou/few-shot-eurosat-cross-domain
+  open_access: true
+  license:
+    content: CC-BY-4.0
+    code: MIT
+  date: 2026-04-14
+  toc:
+    - file: index.md
+    - file: 01_cross_domain_eurosat.ipynb
+
+site:
+  template: book-theme
+  options:
+    logo_text: Cross-Domain EuroSAT

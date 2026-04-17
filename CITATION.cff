@@ -1,0 +1,74 @@
+cff-version: 1.2.0
+title: "Few-Shot EuroSAT Cross-Domain: From Everyday Photos to Satellite Imagery"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Fouilloux
+    given-names: Anne
+    orcid: "https://orcid.org/0000-0002-1784-2920"
+    affiliation: "LifeWatch ERIC"
+repository-code: "https://github.com/annefou/few-shot-eurosat-cross-domain"
+license: MIT
+version: "0.1.0"
+date-released: "2026-04-14"
+keywords:
+  - few-shot learning
+  - prototypical networks
+  - cross-domain transfer
+  - remote sensing
+  - Sentinel-2
+  - EuroSAT
+  - mini-ImageNet
+  - land cover classification
+  - meta-learning
+  - replication study
+references:
+  - type: conference-paper
+    title: "A Broader Study of Cross-Domain Few-Shot Learning"
+    authors:
+      - family-names: Guo
+        given-names: Yunhui
+      - family-names: Codella
+        given-names: Noel C. F.
+      - family-names: Karlinsky
+        given-names: Leonid
+      - family-names: Codella
+        given-names: James V.
+      - family-names: Smith
+        given-names: John R.
+      - family-names: Saenko
+        given-names: Kate
+      - family-names: Rosing
+        given-names: Tajana
+      - family-names: Feris
+        given-names: Rogerio
+    year: 2020
+    doi: "10.1007/978-3-030-58583-9_8"
+    conference:
+      name: "European Conference on Computer Vision (ECCV)"
+  - type: article
+    title: "Prototypical Networks for Few-shot Learning"
+    authors:
+      - family-names: Snell
+        given-names: Jake
+      - family-names: Swersky
+        given-names: Kevin
+      - family-names: Zemel
+        given-names: Richard
+    year: 2017
+    conference:
+      name: "Advances in Neural Information Processing Systems 30 (NeurIPS)"
+    url: "https://arxiv.org/abs/1703.05175"
+  - type: article
+    title: "EuroSAT: A Novel Dataset and Deep Learning Benchmark for Land Use and Land Cover Classification"
+    authors:
+      - family-names: Helber
+        given-names: Patrick
+      - family-names: Bischke
+        given-names: Benjamin
+      - family-names: Dengel
+        given-names: Andreas
+      - family-names: Borth
+        given-names: Damian
+    year: 2019
+    doi: "10.1109/JSTARS.2019.2918242"

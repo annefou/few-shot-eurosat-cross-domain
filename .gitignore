@@ -1,0 +1,15 @@
+# Data (downloaded automatically)
+data/
+!data/.gitkeep
+
+# Results (generated)
+results/*.pth
+results/*.png
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Jupyter notebooks generated from Jupytext
+*.ipynb
