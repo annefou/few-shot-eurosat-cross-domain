@@ -3,51 +3,109 @@ title: Few-Shot EuroSAT Cross-Domain
 subtitle: Can everyday photos teach AI to classify satellite imagery?
 ---
 
-## The cross-domain challenge
+## The question
 
-Earth observation relies on satellite sensors that produce imagery fundamentally different from everyday photographs. Sentinel-2 captures multispectral data at 10 m resolution, looking straight down at landscapes. Meanwhile, the largest labeled datasets in computer vision contain photos of dogs, cars, and furniture taken at human eye level. Can visual features learned from these everyday photos transfer to satellite land cover classification?
+You have Sentinel-2 satellite imagery of a region and need to classify land cover types — but you only have a handful of labeled examples. Deep learning models typically need thousands of labeled images to train. What if you could use the millions of labeled everyday photographs (dogs, cars, furniture) that already exist?
 
-This is the **cross-domain few-shot learning** problem studied by [Guo et al. (2020, ECCV)](https://doi.org/10.1007/978-3-030-58583-9_8). It is harder than within-domain transfer because the training and test images come from completely different imaging modalities.
+This project tests exactly that: train an AI model on everyday photographs, then ask it to classify satellite imagery it has never seen, using only 5 labeled satellite images per class.
 
-## What we did
+## What we tested
 
-1. **Trained a Prototypical Network on mini-ImageNet** -- 60,000 natural photographs of everyday objects (dogs, buses, furniture, etc.) across 100 classes
-2. **Froze the feature extractor** -- no satellite data is used during training at all
-3. **Evaluated on EuroSAT** -- 27,000 real Sentinel-2 satellite patches covering 10 European land cover types
-4. **Tested with 1, 5, and 20 labeled satellite examples per class** -- replicating the exact protocol from Guo et al. (2020) Table 1
+We ran three experiments, each using [Prototypical Networks](https://arxiv.org/abs/1703.05175) — an AI method that classifies new categories by comparing images to a few labeled examples:
 
-## Why this matters for Earth observation
+| Experiment | Training data | Backbone | 5-shot accuracy |
+|------------|--------------|----------|----------------|
+| Simple backbone | 5,000 episodes on everyday photos (84×84 px) | 4-block CNN | 67.4% |
+| Matching published setup | 40,000 episodes on everyday photos (224×224 px) | ResNet-10 | 75.0% |
+| Supervised pretraining | 10 epochs classification on everyday photos (224×224 px) | ResNet-10 | 76.2% |
 
-For EO practitioners, this experiment answers a practical question: when you have a new satellite classification task with very few labeled examples, how much can you rely on models pre-trained on non-satellite data?
+For comparison, random guessing on a 5-way task gives 20%.
 
-- **If cross-domain transfer works well**: you can bootstrap satellite classifiers from general-purpose models, reducing the need for expensive labeled satellite training data
-- **If it fails**: domain-specific training on satellite imagery is essential, even for few-shot learning -- motivating investments in labeled EO datasets
+## What we learned
 
-## Companion project
+### 1. Cross-domain transfer works — but with limits
 
-The [within-domain companion](https://github.com/annefou/few-shot-eurosat-within-domain) trains and tests entirely on EuroSAT, simulating a Natura 2000 habitat monitoring scenario. Comparing the two reveals the cost of the domain gap between natural photos and satellite imagery.
+A model trained only on photographs of dogs, cars, and household objects can classify satellite land cover types at 67–76% accuracy from just 5 labeled satellite images. This is well above random (20%) and shows that low-level visual features (edges, textures, colour patterns) transfer across domains.
+
+However, 76% accuracy on broad land cover categories (forest vs. highway vs. sea) is not sufficient for most operational EO applications. Real habitat classification — distinguishing two types of grassland, or identifying specific Natura 2000 habitat types — requires finer discrimination that RGB features from everyday photos cannot provide.
+
+### 2. Architecture and image resolution matter more than training method
+
+The biggest accuracy improvement came from switching to a deeper backbone (ResNet-10) and higher resolution images (224×224 instead of 84×84) — not from the training algorithm. This means EO researchers don't need to learn complex meta-learning techniques. A standard pretrained model (available in one line of PyTorch code) is a good starting point.
+
+### 3. Supervised pretraining is as effective as meta-learning
+
+Standard supervised training (classifying everyday objects for 10 epochs, ~15 minutes) achieves the same cross-domain accuracy as episodic meta-learning (40,000 episodes, ~3 hours). This confirms the original paper's finding and has a practical implication: **you don't need specialised meta-learning tools — any off-the-shelf ImageNet-pretrained model works**.
+
+### 4. The domain gap is real
+
+Compared to our [within-domain experiment](https://github.com/annefou/few-shot-eurosat-within-domain) where we trained on common satellite classes and tested on rare ones (82% accuracy), cross-domain transfer loses about 6–15 percentage points. The model has never seen overhead perspective, land cover semantics, or the spectral characteristics of satellite imagery during training — and that gap shows.
+
+## What we recommend for EO researchers
+
+Based on these experiments, here is our practical advice:
+
+**If you have some labeled satellite data** (even for other classes in your region): use the [within-domain approach](https://github.com/annefou/few-shot-eurosat-within-domain). Train on your common classes, then classify rare classes with few examples. This gives you 82% accuracy and the model already understands satellite imagery.
+
+**If you have no labeled satellite data at all**: use an off-the-shelf ImageNet-pretrained model (e.g. `torchvision.models.resnet18(pretrained=True)`) as a feature extractor. Feed your few labeled satellite patches through it, compute class prototypes, classify by nearest prototype. This gives you ~76% as a starting point — enough for initial screening, not for final results. Then invest in labeling a small satellite training set to move to the within-domain approach.
+
+**What won't work well**: trying to distinguish spectrally similar classes (two vegetation types, or crop stages) using only RGB bands and ImageNet features. For this you need Sentinel-2's near-infrared and shortwave infrared bands, which require domain-specific models.
+
+## Results compared
+
+| Approach | Training data | 5-shot | 20-shot | 50-shot |
+|----------|--------------|--------|---------|---------|
+| **Cross-domain** (this project) | Everyday photos | 76.2% | 79.5% | 81.5% |
+| **Within-domain** ([companion](https://github.com/annefou/few-shot-eurosat-within-domain)) | Satellite (common classes) | 82.1% | — | — |
+| **Random baseline** | — | 20.0% | 20.0% | 20.0% |
+
+The within-domain approach is consistently better. If you can collect even a small amount of labeled satellite data for your region, it's worth it.
+
+## FORRT nanopublications
+
+This work is published as three chains of [nanopublications](https://nanopub.net/) on [Science Live](https://platform.sciencelive4all.org), following the [FORRT](https://forrt.org/) replication framework:
+
+### Chain 1: Simple backbone baseline
+| Step | Nanopublication |
+|------|----------------|
+| Quotation | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RA-bVr4LQBaoZPSWEyLFLWdoC7BTcObJ6ykgtBSml5cp4) |
+| AIDA sentence | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RAO6jpjWhEJQL4bKkTti0H9eqzYUm5LrLr2Vj3cZRJIb4) |
+| FORRT Claim | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/np/RAgZGw58tmKN2aaPtkWv4uBJ_tc3U1RtDzh5mjPy8BNKw) |
+| FORRT Study | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RAytukwQbTLwKSG4r7oEP7jRtgoBKTQVvO0EAzj6xEUiY) |
+| FORRT Outcome | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RA7OZmOmun07jDm8q6lq7Ris1W0MU3rptcp3bphOWUJj8) |
+
+### Chain 2: Faithful reproduction with matching architecture
+| Step | Nanopublication |
+|------|----------------|
+| Quotation | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RA-bVr4LQBaoZPSWEyLFLWdoC7BTcObJ6ykgtBSml5cp4) |
+| AIDA sentence | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RAxT8-efe0SW_OT_pGFjKHHlBjrfHdgF8Lw8nQpcPp-jI) |
+| FORRT Claim | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/np/RALaapCREr1eEa-abjVo3M7Ago23rN2ISt3gMjYXq2cKo) |
+| FORRT Study | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RAW_JRkV23_hp26WaP0POGns07s3eJXzItiJEINUIcdes) |
+| FORRT Outcome | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RAqs99x7CDi1tutYKJ6J1zes8PEbUhfjbpf3dkdqSoffQ) |
+
+### Chain 3: Supervised pretraining vs meta-learning
+| Step | Nanopublication |
+|------|----------------|
+| Quotation | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RA-bVr4LQBaoZPSWEyLFLWdoC7BTcObJ6ykgtBSml5cp4) |
+| AIDA sentence | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RA4cXCCMH0rK_0mZn0ShUOa3HjSP6tqxaLQFyR3FVmZdg) |
+| FORRT Claim | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/np/RAC32x9lWdLTKRpiz7utsMmLf0_JzadtA4kCvvbrJ_KK8) |
+| FORRT Study | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RAW3U5bhevQdUMc51N_QsJSuCrV8j8QauGh9cU6H0o-2Q) |
+| FORRT Outcome | [view](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/sciencelive/np/RA9PP1TVbvRwEv9UNHYfGWvfCXtxCe3f6_xJnf-YbAgSc) |
 
 ## Reproducibility
 
-This experiment is fully reproducible:
-
-- **Code**: [GitHub repository](https://github.com/annefou/few-shot-eurosat-cross-domain) with Jupytext notebook, Snakemake pipeline, Dockerfile
-- **Data**: [mini-ImageNet](https://paperswithcode.com/dataset/mini-imagenet) via HuggingFace `datasets` + [EuroSAT](https://zenodo.org/records/7711810) -- both downloaded automatically
-- **CI**: GitHub Actions runs the full experiment on every push
+- **Code**: [GitHub](https://github.com/annefou/few-shot-eurosat-cross-domain)
+- **Archive**: [Zenodo DOI 10.5281/zenodo.19643138](https://doi.org/10.5281/zenodo.19643138)
+- **Data**: mini-ImageNet (HuggingFace) + EuroSAT (torchvision) — both downloaded automatically
+- **CI**: GitHub Actions runs the experiment on every push
+- **Runtime**: Conv4 ~5 min, supervised ~15 min, episodic ~3 hours (Apple M1 Pro)
 
 ## Quick start
 
 ```bash
-# Clone and run
 git clone https://github.com/annefou/few-shot-eurosat-cross-domain
 cd few-shot-eurosat-cross-domain
 mamba env create -f environment.yml
 mamba activate few-shot-eurosat-cross
 python 01_cross_domain_eurosat.py
-```
-
-Or with Docker:
-```bash
-docker pull ghcr.io/annefou/few-shot-eurosat-cross-domain
-docker run ghcr.io/annefou/few-shot-eurosat-cross-domain
 ```
