@@ -1,11 +1,12 @@
 {
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@id": "https://doi.org/10.5281/zenodo.19643138",
   "@type": "SoftwareSourceCode",
   "name": "Few-Shot EuroSAT Cross-Domain: From Everyday Photos to Satellite Imagery",
-  "description": "Cross-domain few-shot classification replicating Guo et al. (2020, ECCV) Table 1: train on mini-ImageNet (everyday photos), test on EuroSAT (Sentinel-2 satellite imagery) using Prototypical Networks.",
-  "version": "0.1.0",
-  "dateCreated": "2026-04-14",
-  "dateModified": "2026-04-14",
+  "description": "Cross-domain few-shot classification replicating Guo et al. (2020, ECCV) Table 1: train on mini-ImageNet (everyday photos), test on EuroSAT (Sentinel-2 satellite imagery) using Prototypical Networks. Three approaches compared: Conv4 episodic, ResNet-10 episodic (reproduces baseline), ResNet-10 supervised (comparable accuracy, far less compute).",
+  "version": "0.2.0",
+  "dateCreated": "2026-04-17",
+  "dateModified": "2026-04-18",
   "license": "https://spdx.org/licenses/MIT",
   "codeRepository": "https://github.com/annefou/few-shot-eurosat-cross-domain",
   "programmingLanguage": {

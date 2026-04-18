@@ -2,6 +2,7 @@ cff-version: 1.2.0
 title: "Few-Shot EuroSAT Cross-Domain: From Everyday Photos to Satellite Imagery"
 message: "If you use this software, please cite it as below."
 type: software
+doi: "10.5281/zenodo.19643138"
 authors:
   - family-names: Fouilloux
     given-names: Anne
@@ -9,8 +10,8 @@ authors:
     affiliation: "LifeWatch ERIC"
 repository-code: "https://github.com/annefou/few-shot-eurosat-cross-domain"
 license: MIT
-version: "0.1.0"
-date-released: "2026-04-14"
+version: "0.2.0"
+date-released: "2026-04-18"
 keywords:
   - few-shot learning
   - prototypical networks
