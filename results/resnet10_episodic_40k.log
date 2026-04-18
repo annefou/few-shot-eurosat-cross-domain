@@ -1,0 +1,14 @@
+Device: mps
+Loading mini-ImageNet from HuggingFace...
+  Raw train: 38400 images
+  Preloading PIL images into memory...
+  Loaded: 38400 images, 64 classes
+EuroSAT: 27000 images, 10 classes
+Classes: ['AnnualCrop', 'Forest', 'HerbaceousVegetation', 'Highway', 'Industrial', 'Pasture', 'PermanentCrop', 'Residential', 'River', 'SeaLake']
+Backbone: ResNet-10 (matching Guo et al. exactly)
+Image size: 224×224
+Embedding dimension: 512
+Parameters: 4,905,792
+Episodic training on mini-ImageNet (64 classes, 40000 episodes, 224×224 images)...
+Data augmentation: RandomResizedCrop, ColorJitter, RandomHorizontalFlip
+  Episode 1/40000: loss=23.013, acc=28.7%

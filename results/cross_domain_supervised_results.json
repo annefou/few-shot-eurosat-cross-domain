@@ -1,0 +1,39 @@
+{
+  "method": "Prototypical Networks (Snell et al. 2017)",
+  "training_domain": "mini-ImageNet (64 classes, everyday photos)",
+  "test_domain": "EuroSAT (10 classes, Sentinel-2 satellite imagery)",
+  "replicates": "Guo et al. 2020, ECCV, Table 1, ProtoNet row",
+  "replicates_doi": "10.1007/978-3-030-58583-9_8",
+  "device": "mps",
+  "n_train_epochs": 10,
+  "training_method": "supervised classification",
+  "n_eval_episodes": 100,
+  "our_results": {
+    "5way_5shot": {
+      "accuracy": "0.7619",
+      "ci95": "0.0174"
+    },
+    "5way_20shot": {
+      "accuracy": "0.7947",
+      "ci95": "0.0113"
+    },
+    "5way_50shot": {
+      "accuracy": "0.8145",
+      "ci95": "0.0120"
+    }
+  },
+  "guo_baselines": {
+    "5way_5shot": {
+      "accuracy": "0.7329",
+      "ci95": "0.0071"
+    },
+    "5way_20shot": {
+      "accuracy": "0.8227",
+      "ci95": "0.0057"
+    },
+    "5way_50shot": {
+      "accuracy": "0.8048",
+      "ci95": "0.0057"
+    }
+  }
+}
