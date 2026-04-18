@@ -61,9 +61,13 @@ Based on these experiments, here is our practical advice:
 
 The within-domain approach is consistently better. If you can collect even a small amount of labeled satellite data for your region, it's worth it.
 
+## Research synthesis nanopublication
+
+A [Science Live Research Synthesis](https://platform.sciencelive4all.org/np/?uri=https://w3id.org/np/RARv-ABCr9uAsxKeqU4U_I7aX2d5v-JtgMOfZatwmlmM8) draws the practical conclusion across all experiments and provides recommendations for EO researchers.
+
 ## FORRT nanopublications
 
-This work is published as three chains of [nanopublications](https://nanopub.net/) on [Science Live](https://platform.sciencelive4all.org), following the [FORRT](https://forrt.org/) replication framework:
+This work is published as three replication chains of [nanopublications](https://nanopub.net/) on [Science Live](https://platform.sciencelive4all.org), following the [FORRT](https://forrt.org/) replication framework:
 
 ### Chain 1: Simple backbone baseline
 | Step | Nanopublication |
