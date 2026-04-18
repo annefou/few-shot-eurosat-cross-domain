@@ -5,20 +5,20 @@
   "replicates": "Guo et al. 2020, ECCV, Table 1, ProtoNet row",
   "replicates_doi": "10.1007/978-3-030-58583-9_8",
   "device": "mps",
-  "n_train_episodes": 1000,
-  "n_eval_episodes": 100,
+  "n_train_episodes": 40000,
+  "n_eval_episodes": 600,
   "our_results": {
     "5way_5shot": {
-      "accuracy": "0.5585",
-      "ci95": "0.0179"
+      "accuracy": "0.7502",
+      "ci95": "0.0076"
     },
     "5way_20shot": {
-      "accuracy": "0.5867",
-      "ci95": "0.0177"
+      "accuracy": "0.8186",
+      "ci95": "0.0064"
     },
     "5way_50shot": {
-      "accuracy": "0.6056",
-      "ci95": "0.0159"
+      "accuracy": "0.8294",
+      "ci95": "0.0061"
     }
   },
   "guo_baselines": {

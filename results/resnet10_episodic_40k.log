@@ -12,3 +12,24 @@ Parameters: 4,905,792
 Episodic training on mini-ImageNet (64 classes, 40000 episodes, 224×224 images)...
 Data augmentation: RandomResizedCrop, ColorJitter, RandomHorizontalFlip
   Episode 1/40000: loss=23.013, acc=28.7%
+  Episode 5000/40000: loss=1.311, acc=47.5%
+  Episode 10000/40000: loss=1.007, acc=68.8%
+  Episode 15000/40000: loss=0.824, acc=71.2%
+  Episode 20000/40000: loss=0.703, acc=71.2%
+  Episode 25000/40000: loss=0.612, acc=81.2%
+  Episode 30000/40000: loss=0.560, acc=86.3%
+  Episode 35000/40000: loss=0.514, acc=88.7%
+  Episode 40000/40000: loss=0.474, acc=71.2%
+Training complete (on everyday photos — no satellite data seen).
+  5-way 5-shot: 75.0% +/- 0.8%
+  5-way 20-shot: 81.9% +/- 0.6%
+  5-way 50-shot: 82.9% +/- 0.6%
+Comparison with Guo et al. (2020) Table 1 — ProtoNet on EuroSAT:
+Setting         Guo et al.           Ours                 Match?
+----------------------------------------------------------------------
+5-way 5-shot   73.3% +/- 0.7%    75.0% +/- 0.8%    DIFFERS
+5-way 20-shot   82.3% +/- 0.6%    81.9% +/- 0.6%    WITHIN CI
+5-way 50-shot   80.5% +/- 0.6%    82.9% +/- 0.6%    DIFFERS
+Saved: results/cross_domain_resnet10_results.json
+Saved: results/cross_domain_resnet10.png
+Model saved: results/resnet10_mini_to_eurosat.pth
