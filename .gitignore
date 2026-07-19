@@ -2,9 +2,12 @@
 data/
 !data/.gitkeep
 
-# Results (generated)
+# Model weights (large, regenerate by re-running the experiments)
 results/*.pth
-results/*.png
+
+# Figures ARE committed: results/*.png from the experiment scripts and
+# figures/*.png derived from the committed results JSON. They are the record
+# of what was found, and the Jupyter Book needs them at build time.
 
 # Python
 __pycache__/

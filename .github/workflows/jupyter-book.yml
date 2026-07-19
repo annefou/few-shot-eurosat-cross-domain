@@ -40,7 +40,10 @@ jobs:
           python-version: "3.12"
 
       - name: Install Python dependencies
-        run: pip install jupytext
+        run: pip install jupytext matplotlib
+
+      - name: Regenerate replication figure from committed results
+        run: python 04_plot_replication.py
 
       - name: Convert notebook
         run: jupytext --to ipynb 01_cross_domain_eurosat.py
