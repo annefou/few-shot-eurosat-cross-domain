@@ -9,6 +9,18 @@ You have Sentinel-2 satellite imagery of a region and need to classify land cove
 
 This project tests exactly that: train an AI model on everyday photographs, then ask it to classify satellite imagery it has never seen, using only 5 labeled satellite images per class.
 
+```{figure} figures/replication_comparison.png
+:alt: Cross-domain accuracy on EuroSAT for three training conditions against the
+      published Guo et al. (2020) baseline, with 95% confidence intervals, and the
+      difference from that baseline in percentage points.
+:width: 100%
+
+**The replication in one figure.** Two of our three conditions land within a few
+percentage points of the published ProtoNet baseline; the cheap 5,000-episode
+Conv4 run sits about 6 to 9 points below it. Generated from the committed results files by
+`04_plot_replication.py`.
+```
+
 ## What we tested
 
 We ran three experiments, each using [Prototypical Networks](https://arxiv.org/abs/1703.05175) — an AI method that classifies new categories by comparing images to a few labeled examples:

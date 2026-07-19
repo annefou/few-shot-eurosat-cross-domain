@@ -10,6 +10,17 @@ rule all:
     input:
         f"{RESULTS}/cross_domain_results.json",
         f"{RESULTS}/cross_domain_eurosat.png",
+        "figures/replication_comparison.png",
+
+rule plot_replication:
+    """Headline comparison figure - seconds, no GPU, reads only committed results."""
+    input:
+        f"{RESULTS}/cross_domain_results.json",
+    output:
+        "figures/replication_comparison.png",
+    shell:
+        "python 04_plot_replication.py"
+
 
 rule run_experiment:
     output:
